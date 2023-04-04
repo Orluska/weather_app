@@ -1,3 +1,14 @@
+function formatDate(date) {
+  let hour = date.getHours();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+  let minute = date.getMinutes();
+  if (minute < 10) {
+    minute = `0${minute}`;
+  }
+}
+
 let now = new Date();
 
 let date = now.getDate();
@@ -68,25 +79,23 @@ locWeather.addEventListener("click", showLocalWeather);
 ////////////////
 
 function searchWeather(response) {
-  console.log(response);
-  let temperature = Math.round(response.data.main.temp);
-  let humidity = Math.round(response.data.main.humidity);
-  let wind = Math.round(response.data.wind.speed);
   let description = response.data.weather[0].description;
 
   document.querySelector("#cityApp").innerHTML = response.data.name;
 
-  let temperatureElement = document.querySelector("h2");
-  temperatureElement.innerHTML = `${temperature} ℃`;
+  document.querySelector("h2").innerHTML =
+    Math.round(response.data.main.temp) + " ℃";
 
-  let humidityElement = document.querySelector("#humidity");
-  humidityElement.innerHTML = `${humidity}%`;
+  document.querySelector("#humidity").innerHTML = Math.round(
+    response.data.main.humidity
+  )`%`;
 
-  let windElement = document.querySelector("#wind");
-  windElement.innerHTML = `${wind}km/h`;
+  document.querySelector("#wind").innerHTML = Math.round(
+    response.data.wind.speed
+  )`km/h`;
 
-  let descriptionElement = document.querySelector("#descr");
-  descriptionElement.innerHTML = `${description}`;
+  document.querySelector("#descr").innerHTML =
+    response.data.weather[0].description;
 }
 
 function showCity(event) {
