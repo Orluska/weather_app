@@ -84,27 +84,31 @@ function searchWeather(response) {
   document.querySelector("h2").innerHTML =
     Math.round(response.data.main.temp) + " ℃";
 
-  document.querySelector("#humidity").innerHTML = Math.round(
-    response.data.main.humidity
-  )`%`;
+  document.querySelector("#humidity").innerHTML =
+    Math.round(response.data.main.humidity) + " %";
 
-  document.querySelector("#wind").innerHTML = Math.round(
-    response.data.wind.speed
-  )`km/h`;
+  document.querySelector("#wind").innerHTML =
+    Math.round(response.data.wind.speed) + " km/h";
 
   document.querySelector("#descr").innerHTML =
     response.data.weather[0].description;
 }
 
-function showCity(event) {
-  event.preventDefault();
-
-  let cityName = document.querySelector("#inputCity").value;
+function searchCity(cityName) {
   let apiKey = "dfa83bccaab6931b58468afd20b4f462";
   let unit = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${unit}`;
 
   axios.get(apiUrl).then(searchWeather);
 }
-let city = document.querySelector("#search-engine");
-city.addEventListener("submit", showCity);
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityName = document.querySelector("#inputCity").value;
+  searchCity(cityName);
+}
+
+let searchForm = document.querySelector("#search-engine");
+searchForm.addEventListener("submit", handleSubmit);
+
+searchCity("Athens");
