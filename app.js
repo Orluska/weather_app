@@ -79,8 +79,6 @@ locWeather.addEventListener("click", showLocalWeather);
 ////////////////
 
 function searchWeather(response) {
-  let description = response.data.weather[0].description;
-
   document.querySelector("#cityApp").innerHTML = response.data.name;
 
   document.querySelector("h2").innerHTML =
